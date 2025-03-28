@@ -19,7 +19,7 @@ module Mat_Multi(Key,S0,S1);
     multi m12 ( 8'h82 , Key[111: 104] , 9'b101001101 , A12);
     multi m13 ( 8'hF3 , Key[103: 96] , 9'b101001101 , A13);
     multi m14 ( 8'h1E , Key[95: 88] , 9'b101001101 , A14);
-    multi m15 ( 8'hCE , Key[87: 80] , 9'b101001101 , A15);
+    multi m15 ( 8'hC6 , Key[87: 80] , 9'b101001101 , A15);
     multi m16 ( 8'h68 , Key[79: 72] , 9'b101001101 , A16);
     multi m17 ( 8'hE5 , Key[71: 64] , 9'b101001101 , A17);
     assign S01= A10^A11^A12^A13^A14^A15^A16^A17;
