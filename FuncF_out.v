@@ -5,6 +5,8 @@ module FuncF_out(input [31:0] R0,
                 input [31:0] R3,
                 input [31:0] K0,
                 input [31:0] K1,
+                 input [31:0] S0;
+                 input [31:0] S1;
                 output [31:0] c2,
                 output [31:0] c3,
                 output [31:0] r0,
@@ -12,7 +14,7 @@ module FuncF_out(input [31:0] R0,
                 
     wire [31:0] F0, F1, T0, T1, C2, C3;
     
-  F_function f1(.R0(R0), .R1(R1), .K0(K0), .K1(K1), .F0(F0), .F1(F1));
+  F_function f1(.R0(R0), .R1(R1), .K0(K0),.S0(S0),.S1(S1) .K1(K1), .F0(F0), .F1(F1));
     
     assign T0 = F0 ^ R2;
     assign C2 = ((T0 >> 1) | (T0[0] << 31));
