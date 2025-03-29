@@ -3,7 +3,7 @@
 module mds(
 
     input [7:0] y0, y1, y2, y3,
-    output reg [7:0] out
+    output reg [31:0] out
 );
     // Define a 4x4 array
     reg [7:0] array [3:0][3:0];
