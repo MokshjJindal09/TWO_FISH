@@ -2,7 +2,7 @@
 module Q1(X,X1);
     input[7:0] X;
     output [7:0] X1;
-    wire [3:0] a0,b0,a1,b1,a2,b2,a3,b3,a4,b4,ROR1,ROR2;
+    wire [3:0] a0,b0,a1,b1,a2,b2,a3,b3,a4,b4,ROR1,ROR2,x1,x2;
     assign {a0,b0}=X;
     assign a1=a0^b0;
     assign x1=(8*a0)%16;
