@@ -16,7 +16,7 @@ module Q1(X,X1);
     assign b3=a1^ROR2^x2;
     assign a4=T2(a3);
     assign b4=T3(b3);
-    assign X1=16*a4+b4;
+    assign X1=16*b4+a4;
     
     function [3:0] T0 (input[3:0] data);
         case(data)
