@@ -1,44 +1,43 @@
 `timescale 1ns / 1ps
 
-module mds(
-
-    input [7:0] y0, y1, y2, y3,
-    output reg [31:0] out
-);
-    // Define a 4x4 array
-    reg [7:0] array [3:0][3:0];
-
-    // Wires to store multiplication results
-    wire [7:0] mult_result [3:0][3:0];
-    wire [7:0] xor_results[3:0];
-
-    // Initializing the array
-    always @(*) begin
-            array[0][0] <= 8'h01; array[0][1] <= 8'hEF; array[0][2] <= 8'h5B; array[0][3] <= 8'h5B;
-            array[1][0] <= 8'h5B; array[1][1] <= 8'hEF; array[1][2] <= 8'hEF; array[1][3] <= 8'h01;
-            array[2][0] <= 8'hEF; array[2][1] <= 8'h5B; array[2][2] <= 8'h01; array[2][3] <= 8'hEF;
-            array[3][0] <= 8'hEF; array[3][1] <= 8'h01; array[3][2] <= 8'hEF; array[3][3] <= 8'h5B;
-    end
-
-    genvar i, j;
-    generate
-        for (i = 0; i < 4; i = i + 1) begin
-            for (j = 0; j < 4; j = j + 1) begin
-                gf_multi mult_unit (
-                    .U(array[i][j]), 
-                    .V((j == 0) ? y0 : (j == 1) ? y1 : (j == 2) ? y2 : y3), 
-                    .W(mult_result[i][j])
-                );
-            end
-        end
-    endgenerate
-
-    assign xor_results[0] = mult_result[0][0] ^ mult_result[0][1] ^ mult_result[0][2] ^ mult_result[0][3];
-    assign xor_results[1] = mult_result[1][0] ^ mult_result[1][1] ^ mult_result[1][2] ^ mult_result[1][3];
-    assign xor_results[2] = mult_result[2][0] ^ mult_result[2][1] ^ mult_result[2][2] ^ mult_result[2][3];
-    assign xor_results[3] = mult_result[3][0] ^ mult_result[3][1] ^ mult_result[3][2] ^ mult_result[3][3];
-
-    always @(*) begin
-            out <= {xor_results[0], xor_results[1], xor_results[2], xor_results[3]};
-    end
+module MDS(Y,Z) ;
+    input [31:0] Y;
+    output [31:0] Z;
+    
+    wire [7:0] y0,y1,y2,y3;
+    
+    assign {y0,y1,y2,y3}=Y;
+    
+    wire [7:0] z00,z01,z02,z03;
+    wire [7:0] z10,z11,z12,z13;
+    wire [7:0] z20,z21,z22,z23;
+    wire [7:0] z30,z31,z32,z33;
+    
+    wire [7:0] z0,z1,z2,z3;
+    
+    multi m000 (8'h01,y0,9'b101101001,z00);
+    multi m001 (8'hEF,y1,9'b101101001,z01);
+    multi m002 (8'h5B,y2,9'b101101001,z02);
+    multi m003 (8'h5B,y3,9'b101101001,z03);
+    assign z0=z00^z01^z02^z03;
+    
+    multi m010 (8'h5B,y0,9'b101101001,z10);
+    multi m011 (8'hEF,y1,9'b101101001,z11);
+    multi m012 (8'hEF,y2,9'b101101001,z12);
+    multi m013 (8'h01,y3,9'b101101001,z13);
+    assign z1=z10^z11^z12^z13;
+    
+    multi m020 (8'hEF,y0,9'b101101001,z20);
+    multi m021 (8'h5B,y1,9'b101101001,z21);
+    multi m022 (8'h01,y2,9'b101101001,z22);
+    multi m023 (8'hEF,y3,9'b101101001,z23);
+    assign z2=z20^z21^z22^z23;
+   
+    multi m030 (8'hEF,y0,9'b101101001,z30);
+    multi m031 (8'h01,y1,9'b101101001,z31);
+    multi m032 (8'hEF,y2,9'b101101001,z32);
+    multi m033 (8'h5B,y3,9'b101101001,z33);
+    assign z3=z30^z31^z32^z33; 
+  
+    assign Z={z0,z1,z2,z3};
 endmodule
