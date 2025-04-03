@@ -13,7 +13,7 @@ module Q1(X,X1);
     assign a3=a2^b2;
     assign x2=(8*a2)%16;
     assign ROR2=(b2>>1)|(b2<<3);
-    assign b3=a1^ROR2^x2;
+    assign b3=a2^ROR2^x2;
     assign a4=T2(a3);
     assign b4=T3(b3);
     assign X1=16*b4+a4;
