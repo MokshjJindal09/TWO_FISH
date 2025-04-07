@@ -3,39 +3,39 @@ module encrypt_out(input [127:0] plain_text, input [127:0] key, output [127:0] e
 
     wire [127:0] in_whiten;
     wire [31:0] S0, S1;
-    wire [127:0] Key1, Key2;
+    wire [127:0] Key1, Key2,out;
     wire [31:0] K [39:0] ;
-    
+    wire [31:0] t00,t01,t02,t03,t10,t11,t12,t13,t20,t21,t22,t23,t30,t31,t32,t33,t40,t41,t42,t43,t50,t51,t52,t53,t60,t61,t62,t63,t70,t71,t72,t73,t80,t81,t82,t83,t90,t91,t92,t93,t100,t101,t102,t103,t110,t111,t112,t113,t120,t121,t122,t123,t130,t131,t132,t133,t140,t141,t142,t143,t150,t151,t152,t153,t160,t161,t162,t163;
     Mat_Multi uut(.Key(key), .S0(S0), .S1(S1));
 
     
-        H_Function h0(.i(0), .M(key), .K0(K[0]), .K1(K[1]));
-        H_Function h1(.i(1), .M(key), .K0(K[2]), .K1(K[3]));
-        H_Function h2(.i(2), .M(key), .K0(K[4]), .K1(K[5]));
-        H_Function h3(.i(3), .M(key), .K0(K[6]), .K1(K[7]));
-        H_Function h4(.i(4), .M(key), .K0(K[8]), .K1(K[9]));
-        H_Function h5(.i(5), .M(key), .K0(K[10]), .K1(K[11]));
-        H_Function h6(.i(6), .M(key), .K0(K[12]), .K1(K[13]));
-        H_Function h7(.i(7), .M(key), .K0(K[14]), .K1(K[15]));
-        H_Function h8(.i(8), .M(key), .K0(K[16]), .K1(K[17]));
-        H_Function h9(.i(9), .M(key), .K0(K[18]), .K1(K[19]));
-        H_Function h10(.i(10), .M(key), .K0(K[20]), .K1(K[21]));
-        H_Function h11(.i(11), .M(key), .K0(K[22]), .K1(K[23]));
-        H_Function h12(.i(12), .M(key), .K0(K[24]), .K1(K[25]));
-        H_Function h13(.i(13), .M(key), .K0(K[26]), .K1(K[27]));
-        H_Function h14(.i(14), .M(key), .K0(K[28]), .K1(K[29]));
-        H_Function h15(.i(15), .M(key), .K0(K[30]), .K1(K[31]));
-        H_Function h16(.i(16), .M(key), .K0(K[32]), .K1(K[33]));
-        H_Function h17(.i(17), .M(key), .K0(K[34]), .K1(K[35]));
-        H_Function h18(.i(18), .M(key), .K0(K[36]), .K1(K[37]));
-        H_Function h19(.i(19), .M(key), .K0(K[38]), .K1(K[39]));
-        
+        H_Function h0(.i(0), .key(key), .K0(K[0]), .K1(K[1]));
+        H_Function h1(.i(1), .key(key), .K0(K[2]), .K1(K[3]));
+        H_Function h2(.i(2), .key(key), .K0(K[4]), .K1(K[5]));
+        H_Function h3(.i(3), .key(key), .K0(K[6]), .K1(K[7]));
+        H_Function h4(.i(4), .key(key), .K0(K[8]), .K1(K[9]));
+        H_Function h5(.i(5), .key(key), .K0(K[10]), .K1(K[11]));
+        H_Function h6(.i(6), .key(key), .K0(K[12]), .K1(K[13]));
+        H_Function h7(.i(7), .key(key), .K0(K[14]), .K1(K[15]));
+        H_Function h8(.i(8), .key(key), .K0(K[16]), .K1(K[17]));
+        H_Function h9(.i(9), .key(key), .K0(K[18]), .K1(K[19]));
+        H_Function h10(.i(10), .key(key), .K0(K[20]), .K1(K[21]));
+        H_Function h11(.i(11), .key(key), .K0(K[22]), .K1(K[23]));
+        H_Function h12(.i(12), .key(key), .K0(K[24]), .K1(K[25]));
+        H_Function h13(.i(13), .key(key), .K0(K[26]), .K1(K[27]));
+        H_Function h14(.i(14), .key(key), .K0(K[28]), .K1(K[29]));
+        H_Function h15(.i(15), .key(key), .K0(K[30]), .K1(K[31]));
+        H_Function h16(.i(16), .key(key), .K0(K[32]), .K1(K[33]));
+        H_Function h17(.i(17), .key(key), .K0(K[34]), .K1(K[35]));
+        H_Function h18(.i(18), .key(key), .K0(K[36]), .K1(K[37]));
+        H_Function h19(.i(19), .key(key), .K0(K[38]), .K1(K[39]));
+    assign Key1={K[0],K[1],K[2],K[3]};    
     input_whitening w0(.plain_text(plain_text), .key(Key1), .whitened_text(in_whiten));
     
     
-    assign {t00,t01,t02,t03} = plain_text;
+    assign {t00,t01,t02,t03} = in_whiten;
 
-               assign {t00,t01,t02,t03} = plain_text;
+               assign {t00,t01,t02,t03} = in_whiten;
 
             FuncF_out funcf_inst0(
                 .R0(t00), 
@@ -293,7 +293,7 @@ module encrypt_out(input [127:0] plain_text, input [127:0] key, output [127:0] e
             );
     assign out={t160,t161,t162,t163};
     
-    
+    assign Key2={K[4],K[5],K[6],K[7]};
     input_whitening w1(.plain_text(out), .key(Key2), .whitened_text(encrypt));
     
     
