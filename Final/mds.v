@@ -39,5 +39,5 @@ module MDS(Y,Z) ;
     multi m033 (8'h5B,y3,9'b101101001,z33);
     assign z3=z30^z31^z32^z33; 
   
-    assign Z={z0,z1,z2,z3};
+    assign Z={z3,z2,z1,z0};
 endmodule
